@@ -1,6 +1,5 @@
 # 🚀 Tech On - E-commerce de Tecnologia
 
-![Preview do Projeto](print.jpg)
 
 A **Tech On** é uma plataforma de e-commerce moderna e responsiva focada na venda de acessórios premium (áudio e energia). O projeto simula uma experiência real de compra, desde a navegação por categorias até o checkout dinâmico.
 
