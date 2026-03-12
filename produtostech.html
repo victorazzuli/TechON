@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - Tech On</title>
+  <link rel="stylesheet" href="estilo4.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <nav>
+        <img src="TECH.png" alt="Nova Logo" class="logo-img" width="165">
+      <ul>
+       <li><a href="Techon.html">Início</a></li>
+        <li><a href="sobretech.html">Sobre</a></li>
+        <li><a href="produtostech.html">Produtos</a></li>
+        <li><a href="contatotech.html">Contato</a></li>
+        <li><a href="carrinhotech.html">Carrinho</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="originais">
+    <h2>Produtos Originais</h2>
+    <div class="products">
+      <div class="product-card" data-id="1" data-name="Cabo Tipo C Original" data-price="149.90" data-image="cabo.jpeg">
+        <img src="cabo.jpeg" alt="Cabo Original Apple">
+        <h3>Cabo Tipo C 1 Metro Iphone Original Apple Usb-c Lightning Branco</h3>
+        <p>R$ 149,90</p>
+        <div class="actions">
+          <button class="add-to-cart">Comprar</button>
+          <a href="saiba.html?id=1" class="info-btn" target="_blank">Saiba Mais</a>
+        </div>
+      </div>
+      <div class="product-card" data-id="2" data-name="Carregador 20w Original" data-price="159.90" data-image="carrega.jpeg">
+        <img src="carrega.jpeg" alt="Carregador Original Apple">
+        <h3>Carregador 20w 100% Original Anatel Tipo C Lacrado - Nf-e</h3>
+        <p>R$ 159,90</p>
+        <div class="actions">
+          <button class="add-to-cart">Comprar</button>
+          <a href="saiba.html?id=2" class="info-btn" target="_blank">Saiba Mais</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="premium">
+    <h2>Linha Premium</h2>
+    <div class="products">
+      <div class="product-card" data-id="3" data-name="AirPods Max" data-price="299.90" data-image="fone.jpeg">
+        <img src="fone.jpeg" alt="AirPods Max">
+        <h3>AirPods Max</h3>
+        <p>R$ 299,90</p>
+        <div class="actions">
+          <button class="add-to-cart">Comprar</button>
+          <a href="saiba.html?id=3" class="info-btn" target="_blank">Saiba Mais</a>
+        </div>
+      </div>
+      <div class="product-card" data-id="4" data-name="AirPods Pro 2" data-price="139.90" data-image="airpod.jpeg">
+        <img src="airpod.jpeg" alt="AirPods Pro 2">
+        <h3>AirPods Pro 2</h3>
+        <p>R$ 139,90</p>
+        <div class="actions">
+          <button class="add-to-cart">Comprar</button>
+          <a href="saiba.html?id=4" class="info-btn" target="_blank">Saiba Mais</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Tech On. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+          const productCard = event.target.closest('.product-card');
+          const productId = productCard.dataset.id;
+          const productName = productCard.dataset.name;
+          const productPrice = parseFloat(productCard.dataset.price);
+          const productImage = productCard.dataset.image;
+          
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          
+          const existingItem = cart.find(item => item.id === productId);
+          
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cart.push({
+              id: productId,
+              name: productName,
+              price: productPrice,
+              image: productImage,
+              quantity: 1
+            });
+          }
+          
+          localStorage.setItem('cart', JSON.stringify(cart));
+          window.location.href = 'carrinhotech.html';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

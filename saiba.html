@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saiba Mais - Tech On</title>
+  <link rel="stylesheet" href="estilo4.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos específicos para esta página */
+    .product-detail-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 50px;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 40px;
+    }
+
+    .product-detail-image {
+      flex-basis: 50%;
+      text-align: center;
+    }
+
+    .product-detail-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .product-detail-info {
+      flex-basis: 50%;
+      padding-top: 20px;
+    }
+
+    .product-detail-info h1 {
+      font-size: 2.5rem;
+      color: #263238;
+      margin-bottom: 10px;
+    }
+
+    .product-detail-info .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 20px;
+    }
+
+    .product-detail-info .description {
+      font-size: 1rem;
+      color: #546e7a;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    /* Estilo para a seção de especificações */
+    .product-specs {
+        margin-top: 30px;
+    }
+    
+    .product-specs h3 {
+        font-size: 1.5rem;
+        color: #263238;
+        margin-bottom: 15px;
+    }
+    
+    .product-specs ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .product-specs ul li {
+        background: #f0f4f8;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: #546e7a;
+    }
+
+    .product-detail-info button {
+      background: #0077cc;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+
+    .product-detail-info button:hover {
+      background: #155ab6;
+    }
+
+    .back-btn {
+        display: block;
+        width: fit-content;
+        margin: 20px auto 0;
+        padding: 10px 20px;
+        background: #e0e0e0;
+        color: #333;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+        background: #c0c0c0;
+    }
+
+    /* Media query para telas menores */
+    @media (max-width: 768px) {
+        .product-detail-container {
+            flex-direction: column;
+            gap: 20px;
+        }
+        .product-detail-info h1 {
+            font-size: 2rem;
+        }
+        .product-detail-info .price {
+            font-size: 1.5rem;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+        <img src="TECH.png" alt="Nova Logo" class="logo-img" width="165">
+      <ul>
+        <li><a href="Techon.html">Início</a></li>
+        <li><a href="sobretech.html">Sobre</a></li>
+        <li><a href="produtostech.html">Produtos</a></li>
+        <li><a href="contatotech.html">Contato</a></li>
+        <li><a href="carrinhotech.html">Carrinho</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="product-detail-container">
+      <div class="product-detail-image">
+        <img id="productImage" src="" alt="Imagem do Produto">
+      </div>
+      <div class="product-detail-info">
+        <h1 id="productName">Nome do Produto</h1>
+        <p class="price" id="productPrice">R$ 0,00</p>
+        <p class="description" id="productDescription">Descrição detalhada do produto...</p>
+        
+        <div class="product-specs">
+            <h3>Especificações</h3>
+            <ul id="specsList">
+                </ul>
+        </div>
+
+        <button id="addToCartButton">Comprar</button>
+      </div>
+    </section>
+    <a href="produtostech.html" class="back-btn">Voltar para Produtos</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Tech On. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dados dos produtos com as especificações
+      const products = [
+        {
+          id: '1',
+          name: 'Cabo Tipo C 1 Metro Iphone Original Apple Usb-c Lightning Branco',
+          price: 149.90,
+          image: 'cabo.jpeg',
+          description: 'Cabo original Apple com 1 metro de comprimento. Ideal para carregamento rápido e sincronização de dados. Conexão USB-C para Lightning. Durabilidade e desempenho garantidos pela qualidade Apple.',
+          specifications: [
+              'Marca: Apple',
+              'Comprimento: 1 metro',
+              'Conector 1: USB-C',
+              'Conector 2: Lightning',
+              'Cor: Branco'
+          ]
+        },
+        {
+          id: '2',
+          name: 'Carregador 20w 100% Original Anatel Tipo C Lacrado - Nf-e',
+          price: 159.90,
+          image: 'carrega.jpeg',
+          description: 'Carregador de parede original Apple de 20W com selo da Anatel. Perfeito para carregar seu iPhone de forma rápida e segura. Acompanha Nota Fiscal Eletrônica e está lacrado.',
+          specifications: [
+              'Marca: Apple',
+              'Potência: 20W',
+              'Entrada: USB-C',
+              'Certificação: Anatel',
+              'Condição: Lacrado'
+          ]
+        },
+        {
+          id: '3',
+          name: 'Fone de Ouvido Apple AirPods Max',
+          price: 299.90,
+          image: 'fone.jpeg',
+          description: 'Fone de ouvido premium da Apple com cancelamento de ruído ativo. Oferece uma experiência de áudio imersiva e de alta fidelidade. Design elegante e confortável para uso prolongado.',
+          specifications: [
+              'Marca: Apple',
+              'Tipo: Over-ear',
+              'Tecnologia: Cancelamento de Ruído Ativo',
+              'Recursos: Áudio Espacial Personalizado',
+              'Bateria: Até 20h de reprodução',
+              'Cores: Verde, Rosa, Prata, Cinza Espacial, Azul Celeste',
+ 
+          ]
+        },
+        {
+          id: '4',
+          name: 'AirPods Pro 2',
+          price: 139.90,
+          image: 'airpod.jpeg',
+          description: 'AirPods Pro 2ª Geração com cancelamento de ruído aprimorado, modo de transparência adaptável e áudio espacial personalizado. Experiência sonora envolvente e com alta tecnologia.',
+          specifications: [
+              'Marca: Apple',
+              'Modelo: AirPods Pro 2',
+              'Tecnologia: Cancelamento de Ruído Ativo',
+              'Recursos: Áudio Espacial, Modo de Transparência Adaptável',
+              'Resistência: IPX4 (resistência a suor e água)'
+          ]
+        }
+      ];
+
+      // Pega o ID do produto da URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+      const product = products.find(p => p.id === productId);
+
+      if (product) {
+        // Popula a página com os dados do produto
+        document.getElementById('productImage').src = product.image;
+        document.getElementById('productImage').alt = product.name;
+        document.getElementById('productName').textContent = product.name;
+        document.getElementById('productPrice').textContent = `R$ ${product.price.toFixed(2)}`;
+        document.getElementById('productDescription').textContent = product.description;
+
+        // Popula a lista de especificações
+        const specsList = document.getElementById('specsList');
+        specsList.innerHTML = '';
+        product.specifications.forEach(spec => {
+            const li = document.createElement('li');
+            li.textContent = spec;
+            specsList.appendChild(li);
+        });
+
+        // Adiciona funcionalidade ao botão "Comprar"
+        document.getElementById('addToCartButton').addEventListener('click', () => {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const existingItem = cart.find(item => item.id === productId);
+          
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cart.push({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              image: product.image,
+              quantity: 1
+            });
+          }
+          
+          localStorage.setItem('cart', JSON.stringify(cart));
+          window.location.href = 'carrinhotech.html';
+        });
+      } else {
+        // Caso o produto não seja encontrado
+        document.querySelector('main').innerHTML = '<h1 style="text-align: center; margin-top: 50px;">Produto não encontrado!</h1><a href="produtostech.html" class="back-btn">Voltar para Produtos</a>';
+      }
+    });
+  </script>
+</body>
+</html>

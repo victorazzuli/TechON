@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - Tech On</title>
+  <link rel="stylesheet" href="estilo4.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+        <img src="TECH.png" alt="Nova Logo" class="logo-img" width="165" >
+      <ul>
+        <li><a href="Techon.html">Início</a></li>
+        <li><a href="sobretech.html">Sobre</a></li>
+        <li><a href="produtostech.html">Produtos</a></li>
+        <li><a href="contatotech.html">Contato</a></li>
+        <li><a href="carrinhotech.html">Carrinho</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="cart-container">
+    <h1>Seu Carrinho</h1>
+
+    <div class="cart-items" id="cartItemsContainer">
+      </div>
+
+    <div class="cart-summary" id="cartSummary">
+      <div class="summary-row">
+        <p>Subtotal:</p>
+        <p id="subtotal">R$ 0,00</p>
+      </div>
+      <div class="summary-row">
+        <p>Frete:</p>
+        <p id="shipping">R$ 20,00</p>
+      </div>
+      <div class="summary-row">
+        <p class="total">Total:</p>
+        <p class="total" id="total">R$ 0,00</p>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Finalizar Compra</button>
+    </div>
+  </section>
+
+  <section class="checkout-section" id="checkoutSection">
+    <h2>Pagar com Pix</h2>
+    <div class="pix-qr-code">
+        <p>Escaneie o QR Code abaixo:</p>
+        <img id="pix-qr" src="" alt="QR Code Pix">
+    </div>
+    <p>Ou copie e cole o código:</p>
+    <div class="pix-code" id="pixCode">
+        E2123902348572183904283948273948372948723948723
+    </div>
+    <p style="margin-top: 15px;">A compra será confirmada após o pagamento.</p>
+    <button class="checkout-btn" onclick="window.location.href='Techon.html'">Voltar para o Início</button>
+    <p style="color:red; font-weight:bold; margin-top:10px;">ATENÇÃO: Esta é uma simulação. Não realize um pagamento real.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Tech On. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cartItemsContainer = document.getElementById('cartItemsContainer');
+      const subtotalElement = document.getElementById('subtotal');
+      const totalElement = document.getElementById('total');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const checkoutSection = document.getElementById('checkoutSection');
+      const shippingCost = 20.00; // Frete fixo
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      function renderCart() {
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<p style="text-align:center;">Seu carrinho está vazio.</p>';
+          checkoutBtn.style.display = 'none';
+          document.getElementById('cartSummary').style.display = 'none';
+        } else {
+          checkoutBtn.style.display = 'block';
+          document.getElementById('cartSummary').style.display = 'block';
+          cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+              <img src="${item.image}" alt="${item.name}">
+              <div class="item-details">
+                <h3>${item.name}</h3>
+                <p>R$ ${item.price.toFixed(2)}</p>
+              </div>
+              <div class="item-quantity">
+                <p>Qtd:</p>
+                <input type="number" value="${item.quantity}" min="1" data-id="${item.id}">
+              </div>
+              <button class="remove-btn" data-id="${item.id}">Remover</button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+          });
+        }
+        updateTotals();
+      }
+
+      function updateTotals() {
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const total = subtotal + shippingCost;
+        
+        subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
+
+        // Atualiza a URL do QR Code simulado com o valor total
+        const pixCodeElement = document.getElementById('pixCode');
+        pixCodeElement.textContent = `Pagar R$ ${total.toFixed(2)} - Chave Aleatória: E123456789`;
+        document.getElementById('pix-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Valor:${total.toFixed(2)}`;
+      }
+
+      function handleCartActions(event) {
+        const target = event.target;
+        const itemId = target.dataset.id;
+        
+        if (target.classList.contains('remove-btn')) {
+          cart = cart.filter(item => item.id !== itemId);
+        } else if (target.type === 'number') {
+          const newQuantity = parseInt(target.value);
+          const itemToUpdate = cart.find(item => item.id === itemId);
+          if (itemToUpdate) {
+            itemToUpdate.quantity = newQuantity;
+          }
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+
+      cartItemsContainer.addEventListener('click', handleCartActions);
+      cartItemsContainer.addEventListener('change', handleCartActions);
+
+      checkoutBtn.addEventListener('click', () => {
+        document.getElementById('cartSummary').style.display = 'none';
+        cartItemsContainer.style.display = 'none';
+        document.querySelector('.cart-container h1').style.display = 'none';
+        checkoutSection.style.display = 'block';
+      });
+
+      renderCart();
+    });
+  </script>
+</body>
+</html>
