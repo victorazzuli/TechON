@@ -39,4 +39,4 @@ Este site foi desenvolvido para aplicar conceitos avançados de manipulação de
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/tech-on.git](https://github.com/seu-usuario/tech-on.git)
+   git clone [https://github.com/victorazzuli/tech-on.git](https://github.com/victorazzuli/tech-on.git)
